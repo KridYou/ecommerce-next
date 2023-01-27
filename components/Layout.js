@@ -8,7 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Store } from '../utils/Store';
 
-import { FaCopyright } from 'react-icons/fa';
+import { FaCopyright, FaShopify, FaUserCircle } from 'react-icons/fa';
+
 import { Menu } from '@headlessui/react';
 import DropdownLink from './DropdownLink';
 import Cookies from 'js-cookie';
@@ -18,10 +19,21 @@ export default function Layout({ title, children }) {
 
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
+  // const { cartItems } = cart;
+
+  // const {
+  //   cart: { cartItems },
+  // } = state;
+
   const [cartItemsCount, setCartItemsCount] = useState(0);
+
   useEffect(() => {
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   }, [cart.cartItems]);
+
+  // useEffect(() => {
+  //   setCartItemsCount(cartItems.reduce((a, c) => a + c.quantity, 0));
+  // }, [cartItems]);
 
   const logoutClickHandler = () => {
     Cookies.remove('cart');
@@ -41,14 +53,15 @@ export default function Layout({ title, children }) {
       <ToastContainer position="bottom-center" limit={1} />
 
       <div className="flex min-h-screen flex-col justify-between">
-        <header>
+        <header className="bg-yellow-500">
           <nav className="flex h-12 justify-between shadow-md items-center px-4">
-            <Link href="/">
+            <Link href="/" className="flex items-center">
+              <FaShopify className="text-3xl mx-4" />
               <div className="text-lg">KridShop</div>
             </Link>
             <div className="flex items-center">
               <Link href="/cart">
-                <div className="tag-a p-4">
+                <div className="tag-a py-2 px-4 mx-2  rounded-lg hover:bg-blue-200">
                   Cart
                   {cartItemsCount > 0 && (
                     <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
@@ -60,11 +73,12 @@ export default function Layout({ title, children }) {
               {status === 'loading' ? (
                 'Loading'
               ) : session?.user ? (
-                <Menu as="div" className="relative inline-block">
-                  <Menu.Button className="text-blue-600">
-                    {session.user.name}
+                <Menu as="div" className="relative inline-block items-center">
+                  <Menu.Button className="flex">
+                    <FaUserCircle className="text-2xl mx-2" />
+                    <div className="text-blue-600">{session.user.name}</div>
                   </Menu.Button>
-                  <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white shadow-lg">
+                  <Menu.Items className="absolute right-0 w-56 origin-top-right my-4 bg-white shadow-lg z-50">
                     <Menu.Item>
                       <DropdownLink className="dropdown-link" href="/profile">
                         Profile
@@ -100,7 +114,7 @@ export default function Layout({ title, children }) {
         <main className="container m-auto mt-4 px-4">{children}</main>
         <footer className="flex h-10 justify-center items-center shadow-inner">
           <div className="flex items-center">
-            Copyright <FaCopyright className="mx-2" /> 2022 KridShop
+            Copyright <FaCopyright className="mx-2" /> 2023 KridShop
           </div>
         </footer>
       </div>

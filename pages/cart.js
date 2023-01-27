@@ -3,7 +3,9 @@ import Image from 'next/image';
 import React, { useContext } from 'react';
 import Layout from '../components/Layout';
 import { Store } from '../utils/Store';
+
 import { FaTimesCircle } from 'react-icons/fa';
+
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import axios from 'axios';
@@ -68,6 +70,7 @@ function CartScreen() {
                     </td>
                     <td className="p-5 text-right">
                       <select
+                        className="cursor-pointer"
                         value={item.quantity}
                         onChange={(e) =>
                           updateCartHandler(item, e.target.value)
@@ -83,7 +86,7 @@ function CartScreen() {
                     <td className="p-5 text-right">${item.price}</td>
                     <td className="p-5 text-center">
                       <button onClick={() => removeItemHandler(item)}>
-                        <FaTimesCircle className="h-5 w-5" />
+                        <FaTimesCircle className="h-5 w-5 text-red-600 hover:text-red-300" />
                       </button>
                     </td>
                   </tr>

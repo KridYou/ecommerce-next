@@ -25,7 +25,7 @@ const data = {
       brand: 'brand1',
       rating: 5.5,
       numReviews: 8,
-      countInStock: 0,
+      countInStock: 20,
       description: 'new release1',
     },
     {
